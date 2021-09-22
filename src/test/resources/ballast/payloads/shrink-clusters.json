@@ -1,0 +1,36 @@
+{
+  "application": "ballast",
+  "description": "Shrink clusters ballast-envA and ballast-envB",
+  "job": [
+    {
+      "allowDeleteActive": true,
+      "cloudProvider": "aws",
+      "cloudProviderType": "aws",
+      "cluster": "ballast-envA",
+      "credentials": "test",
+      "name": "Shrink Cluster ballast-envA",
+      "regions": [
+        "us-west-2"
+      ],
+      "retainLargerOverNewer": "false",
+      "shrinkToSize": 0,
+      "type": "shrinkCluster",
+      "refId": "a"
+    },
+    {
+      "allowDeleteActive": true,
+      "cloudProvider": "aws",
+      "cloudProviderType": "aws",
+      "cluster": "ballast-envB",
+      "credentials": "test",
+      "name": "Shrink Cluster ballast-envB",
+      "regions": [
+        "us-west-2"
+      ],
+      "retainLargerOverNewer": "false",
+      "shrinkToSize": 0,
+      "type": "shrinkCluster",
+      "refId": "b"
+    }
+  ]
+}
