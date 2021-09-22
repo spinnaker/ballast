@@ -1,0 +1,63 @@
+name: ballast-manifest
+application: ballast
+artifacts:
+- name: keeldemo
+  type: deb
+  vmOptions:
+    baseOs: bionic-classic
+    regions:
+    - us-west-2
+environments:
+- name: envA
+  constraints: []
+  resources:
+  - kind: "ec2/cluster@v1.1"
+    spec:
+      moniker:
+        app: "ballast"
+        stack: "envA"
+      artifactReference: keeldemo
+      deployWith:
+        strategy: "highlander"
+      locations:
+        account: "test"
+        regions:
+        - name: "us-west-2"
+      launchConfiguration:
+        instanceType: "m5.large"
+        ebsOptimized: true
+      capacity:
+        min: 0
+        max: 0
+        desired: 0
+      dependencies:
+        securityGroupNames:
+        - "ballast"
+- name: envB
+  constraints:
+  - type: depends-on
+    environment: envA
+  - type: manual-judgement
+  resources:
+  - kind: "ec2/cluster@v1.1"
+    spec:
+      moniker:
+        app: "ballast"
+        stack: "envB"
+      artifactReference: keeldemo
+      deployWith:
+        strategy: "highlander"
+      locations:
+        account: "test"
+        regions:
+        - name: "us-west-2"
+      launchConfiguration:
+        instanceType: "m5.large"
+        ebsOptimized: true
+      capacity:
+        min: 0
+        max: 0
+        desired: 0
+      dependencies:
+        securityGroupNames:
+        - "ballast"
